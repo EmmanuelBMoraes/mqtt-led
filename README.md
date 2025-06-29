@@ -98,10 +98,6 @@ Com o ESP32 rodando e conectado (verificado pelo monitor serial), siga os passos
 
 Ao publicar, você deverá ver o LED na sua placa ESP32 responder instantaneamente.
 
-## Demonstração
-
-[INSERIR_GIF_OU_LINK_PARA_VIDEO_AQUI]
-
 ---
 
 _Este projeto foi desenvolvido como parte da avaliação da disciplina de Sistemas Embarcados._
