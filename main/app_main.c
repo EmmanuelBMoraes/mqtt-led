@@ -145,14 +145,17 @@ static void mqtt5_event_handler(void *handler_args, esp_event_base_t base, int32
         print_user_property(event->property->user_property);
         break;
     case MQTT_EVENT_DATA:
+        // Lida com os dados recebidos
         ESP_LOGI(TAG, "MQTT_EVENT_DATA");
         ESP_LOGI(TAG, "TOPIC=%.*s\r\n", event->topic_len, event->topic);
         ESP_LOGI(TAG, "DATA=%.*s\r\n", event->data_len, event->data);
-
+        // Verifica se o tópico é o esperado
         if (strncmp(event->topic, "/ifpe/ads/embarcados/esp32/led", event->topic_len) == 0)
         {
+            // Verifica se os dados recebidos são válidos
             if (event->data_len == 1)
             {
+                // Lógica para ligar ou desligar o LED
                 if (strncmp(event->data, "1", 1) == 0)
                 {
                     ESP_LOGI(TAG, "Comando recebido: Ligar LED\n");
@@ -164,6 +167,7 @@ static void mqtt5_event_handler(void *handler_args, esp_event_base_t base, int32
                     gpio_set_level(BLINK_GPIO, 0);
                 }
             }
+            // Caso contrário, loga um aviso
             else
             {
                 ESP_LOGW(TAG, "Mensagem recebida com tamanho inesperado: %d", event->data_len);
@@ -271,6 +275,7 @@ static void mqtt5_app_start(void)
 void app_main(void)
 {
 
+    // Inicializa o GPIO para o LED
     gpio_reset_pin(BLINK_GPIO);
     gpio_set_direction(BLINK_GPIO, GPIO_MODE_OUTPUT);
     ESP_LOGI(TAG, "[APP] Startup..");
